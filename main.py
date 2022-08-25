@@ -49,7 +49,6 @@ elif command == 'victory':
 elif command == 'wallet':
     wallet()
 
-
 elif command == 'help':
     print('info_developer - информация о разработчике')
     print('info_platform - информация о системе')
@@ -59,6 +58,7 @@ elif command == 'help':
     print('delete - удаление файла или папки')
     print('copy_file -  копирование файла или папки')
     print('victory - игра викторина')
+    print('my_bank_account - пополнение счёта')
     print('wallet - банковский счёт')
     print('exit - выход из программы')
 

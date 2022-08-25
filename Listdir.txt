@@ -1,0 +1,3 @@
+Каталог: D:/Python_project/Console_File_Manager
+Папки: [' new2', '.git', '.idea', 'folder', 'new_folder', 'test_folder', 'venv', '__pycache__']
+Файлы: ['.gitignore', 'code2.py', 'code3.py', 'core.py', 'LICENSE', 'log.txt', 'main.py', 'new_orders.py', 'orders.txt', 'picle_listdir.py', 'README.md', 'text.dat', 'text.txt', 'text2.dat']

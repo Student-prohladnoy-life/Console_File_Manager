@@ -1,8 +1,10 @@
 import os
+import os.path
 import shutil
 import datetime
 import random
 import sys
+import pickle
 
 
 def info_platform():
@@ -28,11 +30,70 @@ def create_folder(name):
 
 
 def get_list(foldres_only=False):
-    result = os.listdir()
-    if foldres_only:
-        result = [f for f in result if os.path.isdir(f)]
-    print(result)
+    TEXT_FILE = 'Listdir.txt'
+    listdir = []
 
+    if os.path.exists(TEXT_FILE):
+        with open(TEXT_FILE, 'r') as f:
+            for order in f:
+                listdir.append(order.replace('\n', ''))
+
+    # if os.path.exists(TEXT_FILE):
+    #     with open(TEXT_FILE, 'rb') as f:
+    #         listdir = pickle.load(f)
+
+    while True:
+
+        print('1. Каталог')
+        print('2. Папки')
+        print('3. Файлы')
+        print('4. Выход')
+
+        path = 'D:/Python_project/Console_File_Manager'
+        choice = input('Выберети пунк меню: ')
+        if choice == '1':
+
+            for dirs, folder, files in os.walk(path):
+                print('Выбранный каталог: ', dirs)
+                listdir.append(f'Каталог: {dirs}')
+                break
+
+        elif choice == '2':
+            for dirs, folder, files in os.walk(path):
+                print(f'Папки: {folder}')
+                listdir.append(f'Папки: {folder}')
+                break
+
+        elif choice == '3':
+            for dirs, folder, files in os.walk(path):
+                print(f'Файлы: {files}')
+                listdir.append(f'Файлы: {files}')
+                break
+
+        elif choice == '4':
+            with open(TEXT_FILE, 'w') as f:
+                for listdir in listdir:
+                    f.write(f'{listdir}\n')
+            break
+        #
+        #     with open(TEXT_FILE, 'wb') as f:
+        #         pickle.dump(listdir, f)
+        #     break
+
+        else:
+            print(F"{'>-<' * 5}Неверный пункт меню{'>-<' * 5}")
+
+    f.close()
+
+        # directory = os.walk(path)
+        # print(next(directory))
+
+
+    # result = os.listdir()
+    # if foldres_only:
+    #     result = [f for f in result if os.path.isdir(f)]
+    # print(result)
+    # print("Текущая деректория:", os.getcwd())
 
 def delete_file(name):
     if os.path.isdir(name):
@@ -158,46 +219,64 @@ def victory():
 
 def wallet():
 
+    FILE_NAME = 'orders.txt'
+    orders = []
     bull_sum = 0
-    history = []
+
+    if os.path.exists(FILE_NAME):
+        with open(FILE_NAME, 'rb') as f:
+            orders = pickle.load(f)
+            bull_sum = pickle.load(f)
 
     while True:
         print('1. пополнение счета')
         print('2. покупка')
         print('3. история покупок')
         print('4. выход')
-        print(f"Ваш счёт: {bull_sum}")
+        print(f"На вашем счёте: {bull_sum}", " Руб")
 
         choice = input('Выберите пункт меню: ')
         if choice == '1':
             cost = int(input("Введите сумму: "))
             bull_sum += cost
 
+            if bull_sum <= 0:
+                print(f'{"*" * 10} Введите сумму для зачисления! {"*" * 10}')
+
+            elif bull_sum >= 0:
+                orders.append(f'{bull_sum}')
+                print(f'{"*" * 10} Зачисленно! {"*" * 10}')
+
         elif choice == '2':
             cost = int(input("Введите сумму покупки: "))
             if cost > bull_sum:
-                print("Недостаточно средств")
+                print(f'{"*" * 10} Недостаточно средств! {"*" * 10}')
             else:
                 bull_sum -= cost
                 name = input("Введите название покупки: ")
-                history.append((name, cost))
+                orders.append((name, cost))
+                print(f'{"*" * 10} Приобритено! {"*" * 10}')
+                print(f"На вашем счёте: {bull_sum}", " Руб")
 
         elif choice == '3':
-            print(history)
+            for order in orders:
+                print(order)
 
         elif choice == '4':
-            print("До свидания!")
+            with open(FILE_NAME, 'wb') as f:
+                pickle.dump(orders, f)
+                pickle.dump(bull_sum, f)
             break
 
         else:
-            print('Неверный пункт меню')
+            print(F"{'>-<' * 5}Неверный пункт меню{'>-<' * 5}")
 
+    f.close()
 
 def exit():
-
     answer = input('Заврешаем работу? (да/нет)? ')
     if answer == "да":
-        print("Досвидания!")
+        print("До свидания!")
         sys.exit()
 
     elif answer == 'нет':
