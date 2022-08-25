@@ -6,3 +6,5 @@ def test_listdir():
     assert get_list('folder') == '.idea', 'folder'
     assert get_list('folder') == 'new_folder', 'test_folder'
     assert get_list('folder') == 'venv', '__pycache__'
+    assert get_list('files') == 'Listdir.txt', 'log.txt'
+    assert get_list('files') == 'core.py', 'main.py'
