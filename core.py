@@ -5,15 +5,16 @@ import datetime
 import random
 import sys
 import pickle
+from decorators import new_info_developer
+from decorators_2 import new_info_platform
 
 
 def info_platform():
-
-    print('Данные системы', sys.platform, '(', os.name, ')')
+    new_info_platform()
 
 
 def info_developer():
-    print("Student-prohladnoy-life")
+    new_info_developer()
 
 
 def create_file(name, text=None):
@@ -85,9 +86,8 @@ def get_list(foldres_only=False):
 
     f.close()
 
-        # directory = os.walk(path)
-        # print(next(directory))
-
+    # directory = os.walk(path)
+    # print(next(directory))
 
     # result = os.listdir()
     # if foldres_only:
@@ -95,11 +95,16 @@ def get_list(foldres_only=False):
     # print(result)
     # print("Текущая деректория:", os.getcwd())
 
+
 def delete_file(name):
-    if os.path.isdir(name):
-        os.rmdir(name)
-    else:
-        os.remove(name)
+    result = None
+    result = os.rmdir(name) if os.path.isdir(name) else os.remove(name)
+    print(result)
+
+    # if os.path.isdir(name):
+    #     os.rmdir(name)
+    # else:
+    #     os.remove(name)
 
 
 def copy_file(name, new_name):
@@ -120,7 +125,6 @@ def save_info(message):
 
 
 def victory():
-
     months = {
         '01': 'января',
         '02': 'февраля',
@@ -208,7 +212,7 @@ def victory():
                 print(days[day], months[month], year, 'года')
         print("Вы ответили верно на", score, "из 5")
 
-        answer = str(input("Проити викторину ещё раз? (да/нет) ")).lower()
+        answer = input("Проити викторину ещё раз? (да/нет) ").lower()
         if answer == "да":
             print("Отлично!")
 
@@ -217,8 +221,8 @@ def victory():
 
     print("До свидания!")
 
-def wallet():
 
+def wallet():
     FILE_NAME = 'orders.txt'
     orders = []
     bull_sum = 0
@@ -272,6 +276,7 @@ def wallet():
             print(F"{'>-<' * 5}Неверный пункт меню{'>-<' * 5}")
 
     f.close()
+
 
 def exit():
     answer = input('Заврешаем работу? (да/нет)? ')

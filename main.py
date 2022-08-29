@@ -1,5 +1,6 @@
 import sys
 from core import create_file, create_folder, get_list, delete_file, copy_file, save_info, wallet, victory, exit, info_platform, info_developer
+from decorators import new_info_developer
 
 save_info('Старт')
 
@@ -41,7 +42,7 @@ elif command == 'info_platform':
     info_platform()
 
 elif command == 'info_developer':
-    info_developer()
+    new_info_developer()
 
 elif command == 'victory':
     victory()
